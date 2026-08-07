@@ -1,24 +1,31 @@
-import csv # import csv Library
-from pathlib import Path # Import Library Path for track
-import tkinter as tk # Graphic Library
-from tkinter import filedialog # windows dialog file
+import csv
+import time
+import customtkinter as ctk
+import tkinter as tk
+from tkinter import filedialog
+from pathlib import Path
 
-root = tk.Tk() # Create a window named root
-root.withdraw() # cash the windows
-dossier = filedialog.askdirectory(title = "Sélectionner un répertoire") 
+screen = ctk.CTk()
+screen.title ("Mon application")
+screen.geometry ("400x400")
 
-if dossier : # si le répertoire est sélectionnée
-    track = Path(dossier)/"donnes.csv" # On recupere le chemin du dossier sélectionné
+def save() :
+    screen.withdraw()
 
-    with open (track,"w",newline ="",encoding="utf-8") as f: # Création et ouverture du fichier f encoder en string en mode écriture
-        ecrire = csv.writer (f,delimiter=",") # Variable d'écriture dans le fichier f avec pour delimiter de séparation du csv la ","
+    track = filedialog.askdirectory()
 
-        # Remplissage des lignes
-        ecrire.writerow(["Age","Nom","Ville"]) 
-        ecrire.writerow([22,"Axel","Nancy"]) 
-        ecrire.writerow([22,"Axel","Nancy"])
+    line = Path(track)/"result"
 
-    print (f"fichier creer ici : {track}") #Affichage du chemin du fichier
+    if line :
+        with open (line , "w", newline= "", encoding= "utf-8") as my_file:
+            file = csv.writer(my_file,delimiter=",")
+            file.writerow (["N°","chiffre"])
+            for i in range (10) :
+                file.writerow([i,i])
+        print (f"vous avez enregistré ca ici : {line}")
+        
+    screen.deiconify()
 
-else :
-    print ("aucun dossier sélectionné")
+ask = ctk.CTkButton (screen,text ="Download",bg_color= "blue", text_color= "white",command = save)
+ask.pack (side = "rigth", padx = 20 , pady = 20)
+screen.mainloop()
