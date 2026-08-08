@@ -10,6 +10,7 @@ screen.title ("Mon application")
 screen.geometry ("400x400")
 
 entree = ctk.CTkEntry(screen,placeholder_text= "Inout a number between 1 and 100",fg_color= "white",text_color="black",width = 220 ,height= 50, corner_radius= 10)
+lab = ctk.CTkCheckBox (screen ,text= "save",bg_color= "white",width = 5, height=5,corner_radius = 2)
 
 def save() :
     value = entree.get()
